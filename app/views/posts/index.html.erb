@@ -1,6 +1,6 @@
 <h1>Все посты</h1>
 <% @post.each do |post| %>
- <div class="cards">
+ <div class="card">
    <h3><%= post.title %></h3>
    <p><%= post.body %></p>	
   <%= link_to "More", post_path(post), :class => 'btn btn-outline-primary' %>
