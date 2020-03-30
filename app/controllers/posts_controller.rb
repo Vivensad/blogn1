@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+	http_basic_authenticate_with name: "admin", password: "pepega",
+	 except: [:index, :show]
   def index
     @post = Post.all
   end

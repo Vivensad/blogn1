@@ -5,5 +5,7 @@ Rails.application.routes.draw do
 
   get 'about' => 'pages#about'
   get 'contacts' => 'pages#contacts'
-  resources :posts
+  resources :posts do
+  	resources :comments
+  end
 end
