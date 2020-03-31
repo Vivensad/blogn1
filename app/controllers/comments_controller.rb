@@ -7,7 +7,6 @@ class CommentsController < ApplicationController
 	end 
 	
 	def destroy
-		http_basic_authenticate_with name: "admin", password: "pepega"
     @comment = Comment.find(params[:id])
 
     @comment.destroy
