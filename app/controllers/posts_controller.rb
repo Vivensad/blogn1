@@ -11,9 +11,21 @@ before_action :authenticate_user!, except: [:show, :index]
     @post = Post.new
   end
 
+  def create
+    # render plain: params[:post].inspect
+    @post = Post.new(post_params)
+
+    if @post.save
+      redirect_to @post
+    else
+      render 'new'
+    end
+  end
+
   def show
     @post = Post.find(params[:id])
     @comments = @post.comments
+    @comment = Comment.new(post_id: @post.id)
   end
 
   def edit
@@ -36,16 +48,6 @@ before_action :authenticate_user!, except: [:show, :index]
     redirect_to posts_path
   end
 
-  def create
-    # render plain: params[:post].inspect
-    @post = Post.new(post_params)
-
-    if @post.save
-      redirect_to @post
-    else
-      render 'new'
-    end
-  end
 
   private def post_params
     params.require(:post).permit(:title, :body)

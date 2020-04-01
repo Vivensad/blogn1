@@ -1,3 +1,8 @@
+<% if @comment.errors.any? %>
+  <% @comment.errors.full_messages.each do |full_messages|%>
+  	<div class="alert alert-danger"><%= full_messages %></div>
+  <% end %>
+<% end %>
 <h1><%= @post.title %>
 <p><%= @post.body %></p>
 <hr>
@@ -5,15 +10,15 @@
 <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you shure?"}, :class => 'btn btn-danger'  %>
 <hr>
 <h2>All comments</h2>
-<% @post.comments.each do |comment| %>
- 
+<% @comments.each do |comment| %>
+ <% next unless comment.id %>
  <div class="card">
    <p><strong><%= comment.username %></strong>: <%= comment.body%><p><%= link_to "Delete", post_comment_path(@post, comment), method: :delete, data: {confirm: "Are you shure?"}, :class => 'btn'  %><p></p>
  </div>
 <% end %>
 <hr>
 <h6>Comments <h6>
-<%= form_for([@post, @post.comments.build]) do |f|%>
+<%= form_for([@post, @comment]) do |f|%>
 <p>
 	Username<br>
 	<%= f.text_field(:username, {:class =>'form-control'}) %>

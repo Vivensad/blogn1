@@ -2,8 +2,13 @@ class CommentsController < ApplicationController
 before_action :authenticate_user!
 	def create
 		@post = Post.find(params[:post_id])
-		@comments = @post.comments.create(comment_params)
-		redirect_to post_path(@post)
+		@comment = @post.comments.new(comment_params)
+		@comments = @post.comments
+		if @comment.save
+			redirect_to post_path(@post)			
+		else
+			render 'posts/show'
+		end
 	end 
 	
 	def destroy
