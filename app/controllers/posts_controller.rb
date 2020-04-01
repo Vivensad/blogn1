@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
-	http_basic_authenticate_with name: "admin", password: "pepega",
-	 except: [:index, :show]
+before_action :authenticate_user!, except: [:show, :index]
+
   def index
     @post = Post.all
   end
@@ -32,7 +32,6 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
-
     @post.destroy
     redirect_to posts_path
   end
